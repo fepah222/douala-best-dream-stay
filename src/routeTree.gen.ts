@@ -10,33 +10,53 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BepandaRouteImport } from './routes/bepanda'
+import { Route as BonamoussadiRouteImport } from './routes/bonamoussadi'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BepandaRoute = BepandaRouteImport.update({
+  id: '/bepanda',
+  path: '/bepanda',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BonamoussadiRoute = BonamoussadiRouteImport.update({
+  id: '/bonamoussadi',
+  path: '/bonamoussadi',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/bepanda': typeof BepandaRoute
+  '/bonamoussadi': typeof BonamoussadiRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/bepanda': typeof BepandaRoute
+  '/bonamoussadi': typeof BonamoussadiRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/bepanda': typeof BepandaRoute
+  '/bonamoussadi': typeof BonamoussadiRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/bepanda' | '/bonamoussadi'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/bepanda' | '/bonamoussadi'
+  id: '__root__' | '/' | '/bepanda' | '/bonamoussadi'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BepandaRoute: typeof BepandaRoute
+  BonamoussadiRoute: typeof BonamoussadiRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,22 +68,28 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/bepanda': {
+      id: '/bepanda'
+      path: '/bepanda'
+      fullPath: '/bepanda'
+      preLoaderRoute: typeof BepandaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bonamoussadi': {
+      id: '/bonamoussadi'
+      path: '/bonamoussadi'
+      fullPath: '/bonamoussadi'
+      preLoaderRoute: typeof BonamoussadiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BepandaRoute: BepandaRoute,
+  BonamoussadiRoute: BonamoussadiRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
