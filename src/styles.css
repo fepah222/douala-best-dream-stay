@@ -66,6 +66,28 @@
   --shadow-card: 0 24px 60px -30px oklch(0 0 0 / 0.8);
 }
 
+:root.light {
+  --background: oklch(0.975 0.008 78);
+  --foreground: oklch(0.22 0.018 55);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.22 0.018 55);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.22 0.018 55);
+  --primary: oklch(0.55 0.15 55);
+  --primary-foreground: oklch(0.99 0.004 80);
+  --secondary: oklch(0.93 0.018 72);
+  --secondary-foreground: oklch(0.25 0.02 55);
+  --muted: oklch(0.94 0.012 75);
+  --muted-foreground: oklch(0.48 0.02 60);
+  --accent: oklch(0.63 0.17 45);
+  --accent-foreground: oklch(0.99 0.004 80);
+  --border: oklch(0.86 0.018 70);
+  --input: oklch(0.86 0.018 70);
+  --ring: oklch(0.55 0.15 55);
+  --shadow-glow: 0 20px 55px -24px color-mix(in oklab, var(--primary) 40%, transparent);
+  --shadow-card: 0 22px 55px -34px oklch(0.3 0.03 55 / 0.35);
+}
+
 @layer base {
   * {
     border-color: var(--color-border);
@@ -76,6 +98,7 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
+    transition: background-color 180ms ease, color 180ms ease;
   }
 
   h1,

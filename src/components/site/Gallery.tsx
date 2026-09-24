@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useSitePreferences } from "@/components/site/SitePreferences";
 
 export type GalleryItem = { src: string; label: string };
 
 export function Carousel({ items }: { items: GalleryItem[] }) {
   const [i, setI] = useState(0);
+  const { language } = useSitePreferences();
   const item = items[i] ?? items[0];
   if (!item) return null;
 
@@ -21,22 +24,26 @@ export function Carousel({ items }: { items: GalleryItem[] }) {
       <span className="absolute bottom-5 left-6 font-display text-xl font-semibold sm:text-2xl">
         {item.label}
       </span>
-      <button
+      <Button
         type="button"
-        aria-label="Previous image"
+        aria-label={language === "fr" ? "Image précédente" : "Previous image"}
+        variant="ghost"
+        size="icon"
         onClick={() => setI((v) => (v - 1 + items.length) % items.length)}
         className="absolute left-3 top-1/2 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-background/70 text-foreground backdrop-blur transition-colors hover:bg-background"
       >
         <ChevronLeft className="h-5 w-5" />
-      </button>
-      <button
+      </Button>
+      <Button
         type="button"
-        aria-label="Next image"
+        aria-label={language === "fr" ? "Image suivante" : "Next image"}
+        variant="ghost"
+        size="icon"
         onClick={() => setI((v) => (v + 1) % items.length)}
         className="absolute right-3 top-1/2 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-background/70 text-foreground backdrop-blur transition-colors hover:bg-background"
       >
         <ChevronRight className="h-5 w-5" />
-      </button>
+      </Button>
     </div>
   );
 }

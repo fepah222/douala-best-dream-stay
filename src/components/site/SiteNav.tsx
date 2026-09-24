@@ -1,6 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { PreferenceControls, useSitePreferences } from "@/components/site/SitePreferences";
 
 type NavLink = { label: string; href: string };
 
@@ -18,6 +20,8 @@ export function SiteNav({
   otherLocation: { label: string; to: string };
 }) {
   const [open, setOpen] = useState(false);
+  const { language } = useSitePreferences();
+  const fr = language === "fr";
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-border/60 bg-background/85 backdrop-blur-xl">
@@ -28,7 +32,7 @@ export function SiteNav({
 
         <nav className="hidden items-center gap-6 text-sm text-muted-foreground lg:flex">
           <Link to="/" className="transition-colors hover:text-foreground">
-            ← All Locations
+            ← {fr ? "Tous les établissements" : "All Locations"}
           </Link>
           {links.map((l) => (
             <a key={l.href} href={l.href} className="transition-colors hover:text-foreground">
@@ -41,27 +45,30 @@ export function SiteNav({
         </nav>
 
         <div className="flex items-center gap-2">
+          <PreferenceControls />
           <a
             href={bookHref}
             className="hidden rounded-full bg-gradient-amber px-5 py-2 text-sm font-semibold text-primary-foreground shadow-glow transition-transform hover:scale-[1.03] sm:inline-flex"
           >
-            Book Now
+            {fr ? "Réserver" : "Book Now"}
           </a>
-          <button
+          <Button
             type="button"
-            aria-label="Toggle menu"
+            variant="outline"
+            size="icon"
+            aria-label={fr ? "Ouvrir le menu" : "Toggle menu"}
             onClick={() => setOpen((v) => !v)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border text-foreground lg:hidden"
+            className="h-9 w-9 lg:hidden"
           >
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
+          </Button>
         </div>
       </div>
 
       {open && (
         <nav className="border-t border-border bg-background px-4 py-4 text-sm lg:hidden">
           <Link to="/" onClick={() => setOpen(false)} className="block py-2 text-muted-foreground">
-            ← All Locations
+            ← {fr ? "Tous les établissements" : "All Locations"}
           </Link>
           {links.map((l) => (
             <a
@@ -85,7 +92,7 @@ export function SiteNav({
             onClick={() => setOpen(false)}
             className="mt-3 inline-flex rounded-full bg-gradient-amber px-5 py-2 font-semibold text-primary-foreground"
           >
-            Book Now
+            {fr ? "Réserver" : "Book Now"}
           </a>
         </nav>
       )}

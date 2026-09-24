@@ -1,5 +1,6 @@
 import { Phone, Mail, MapPin, MessageCircle } from "lucide-react";
 import { contact } from "@/lib/site-data";
+import { useSitePreferences } from "@/components/site/SitePreferences";
 
 export function ContactSection({
   blurb,
@@ -16,9 +17,11 @@ export function ContactSection({
   location: string;
   whatsapp: string;
 }) {
+  const { language } = useSitePreferences();
+  const fr = language === "fr";
   return (
     <section id="contact" className="mx-auto max-w-5xl scroll-mt-20 px-4 py-20 sm:px-6">
-      <h2 className="font-display text-3xl font-bold sm:text-4xl">Book your stay</h2>
+      <h2 className="font-display text-3xl font-bold sm:text-4xl">{fr ? "Réservez votre séjour" : "Book your stay"}</h2>
       <p className="mt-3 max-w-2xl text-muted-foreground">{blurb}</p>
 
       <div className="mt-10 grid gap-4 sm:grid-cols-2">
@@ -27,7 +30,7 @@ export function ContactSection({
           className="rounded-2xl border border-border bg-card p-6 shadow-card transition-colors hover:border-primary"
         >
           <Phone className="h-5 w-5 text-primary" />
-          <p className="mt-3 text-sm text-muted-foreground">Phone / WhatsApp</p>
+          <p className="mt-3 text-sm text-muted-foreground">{fr ? "Téléphone / WhatsApp" : "Phone / WhatsApp"}</p>
           <p className="mt-1 font-display text-xl font-semibold">{primaryLabel}</p>
           <p className="font-display text-xl font-semibold">{secondaryLabel}</p>
         </a>
@@ -43,9 +46,9 @@ export function ContactSection({
 
       <div className="mt-4 rounded-2xl border border-border bg-card p-6 shadow-card">
         <MapPin className="h-5 w-5 text-primary" />
-        <p className="mt-3 text-sm text-muted-foreground">Location</p>
+        <p className="mt-3 text-sm text-muted-foreground">{fr ? "Adresse" : "Location"}</p>
         <p className="mt-1 font-display text-xl font-semibold">{location}</p>
-        <p className="text-muted-foreground">Douala, Cameroon</p>
+        <p className="text-muted-foreground">Douala, {fr ? "Cameroun" : "Cameroon"}</p>
       </div>
 
       <a
@@ -54,13 +57,15 @@ export function ContactSection({
         rel="noreferrer"
         className="mt-8 inline-flex items-center gap-2 rounded-full bg-gradient-amber px-6 py-3 font-semibold text-primary-foreground shadow-glow transition-transform hover:scale-[1.03]"
       >
-        <MessageCircle className="h-5 w-5" /> Chat on WhatsApp
+        <MessageCircle className="h-5 w-5" /> {fr ? "Écrire sur WhatsApp" : "Chat on WhatsApp"}
       </a>
     </section>
   );
 }
 
 export function SiteFooter() {
+  const { language } = useSitePreferences();
+  const fr = language === "fr";
   return (
     <footer className="border-t border-border py-10">
       <div className="mx-auto flex max-w-7xl flex-col items-center gap-4 px-4 text-sm text-muted-foreground sm:px-6">
@@ -82,7 +87,7 @@ export function SiteFooter() {
             rel="noreferrer"
             className="rounded-full border border-border px-4 py-1.5 hover:text-foreground"
           >
-            TikTok · Tour 1
+            TikTok · {fr ? "Visite 1" : "Tour 1"}
           </a>
           <a
             href={contact.tiktok2}
@@ -90,7 +95,7 @@ export function SiteFooter() {
             rel="noreferrer"
             className="rounded-full border border-border px-4 py-1.5 hover:text-foreground"
           >
-            TikTok · Tour 2
+            TikTok · {fr ? "Visite 2" : "Tour 2"}
           </a>
         </div>
       </div>
