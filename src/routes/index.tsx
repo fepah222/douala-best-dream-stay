@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { BedDouble, Building2, MapPin, ArrowRight } from "lucide-react";
 import { images } from "@/lib/site-data";
 import { SiteFooter } from "@/components/site/ContactSection";
+import { PreferenceControls, useSitePreferences } from "@/components/site/SitePreferences";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -48,32 +49,40 @@ const locations = [
   },
 ];
 
+const locationsFr = [
+  { ...locations[0], alt: "Maison d'hôtes de Bépanda", meta: "2 studios meublés", title: "Maison d'hôtes de Bépanda", text: "Deux studios haut de gamme entièrement meublés sur la route principale goudronnée. Parfaits pour les expatriés, touristes et professionnels." },
+  { ...locations[1], alt: "Maison d'hôtes de Bonamoussadi", meta: "14 studios · 3 appartements · Salle de conférence", title: "Maison d'hôtes de Bonamoussadi", text: "Des studios ultramodernes et des appartements luxueux de 2 chambres avec vue panoramique sur la ville et salle de conférence sur place." },
+];
+
 function Index() {
+  const { language } = useSitePreferences();
+  const fr = language === "fr";
+  const displayedLocations = fr ? locationsFr : locations;
   return (
     <div className="min-h-screen">
       <header className="border-b border-border/60">
-        <div className="mx-auto flex h-16 max-w-7xl items-center px-4 sm:px-6">
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
           <span className="font-display text-lg font-bold">Guest House</span>
+          <PreferenceControls />
         </div>
       </header>
 
       <main className="mx-auto max-w-7xl px-4 pb-16 pt-16 sm:px-6 sm:pt-24">
         <div className="text-center">
           <span className="inline-flex rounded-full border border-primary/40 bg-primary/10 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-primary">
-            Douala · Cameroon
+            Douala · {fr ? "Cameroun" : "Cameroon"}
           </span>
           <h1 className="mt-8 font-display text-5xl font-bold leading-[1.05] sm:text-7xl">
-            Guest House
-            <span className="block text-gradient-amber">Choose your location</span>
+            {fr ? "Maison d'hôtes" : "Guest House"}
+            <span className="block text-gradient-amber">{fr ? "Choisissez votre établissement" : "Choose your location"}</span>
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-muted-foreground">
-            Two premium guest houses in Douala, each with its own character. Pick the neighborhood
-            that fits your stay.
+            {fr ? "Deux maisons d'hôtes haut de gamme à Douala, chacune avec son propre caractère. Choisissez le quartier qui correspond à votre séjour." : "Two premium guest houses in Douala, each with its own character. Pick the neighborhood that fits your stay."}
           </p>
         </div>
 
         <div className="mt-16 grid gap-6 lg:grid-cols-2">
-          {locations.map(({ Icon, ...loc }) => (
+          {displayedLocations.map(({ Icon, ...loc }) => (
             <article
               key={loc.to}
               className="group overflow-hidden rounded-3xl border border-border bg-card shadow-card transition-colors hover:border-primary/50"
@@ -100,7 +109,7 @@ function Index() {
                   to={loc.to}
                   className="mt-6 inline-flex items-center gap-2 rounded-full bg-gradient-amber px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-glow transition-transform hover:scale-[1.03]"
                 >
-                  Explore this location <ArrowRight className="h-4 w-4" />
+                  {fr ? "Découvrir cet établissement" : "Explore this location"} <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
             </article>

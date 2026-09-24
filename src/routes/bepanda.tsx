@@ -5,6 +5,7 @@ import { SiteNav } from "@/components/site/SiteNav";
 import { Carousel, GalleryGrid, type GalleryItem } from "@/components/site/Gallery";
 import { PolicySection } from "@/components/site/PolicySection";
 import { ContactSection, SiteFooter } from "@/components/site/ContactSection";
+import { useSitePreferences } from "@/components/site/SitePreferences";
 
 export const Route = createFileRoute("/bepanda")({
   head: () => ({
@@ -70,17 +71,38 @@ const amenities = [
   { Icon: MapPin, title: "Prime Access", text: "On the paved main road" },
 ];
 
+const galleryFr: GalleryItem[] = ["Salon", "Chambre", "Cuisine", "Espace détente", "Salle de bain", "Canapé-lit", "Kitchenette"].map((label, index) => ({ ...gallery[index], label }));
+const featuresFr = [
+  { ...features[0], title: "Salon spacieux", text: "Canapé confortable, Smart TV et climatisation pour vous détendre ou recevoir." },
+  { ...features[1], title: "Chambre confortable", text: "Lit douillet, literie haut de gamme, climatisation et placards intégrés en bois." },
+  { ...features[2], title: "Cuisine équipée", text: "Cuisinière à gaz, réfrigérateur, micro-ondes et ustensiles essentiels." },
+  { ...features[3], title: "Salle de bain moderne", text: "Entièrement carrelée avec un système de douche à eau chaude fonctionnel." },
+];
+const amenitiesFr = [
+  { ...amenities[0], title: "Wi-Fi haut débit", text: "Connexion mondiale ininterrompue" },
+  { ...amenities[1], title: "Sécurité 24 h/24", text: "Personnel sur place en permanence" },
+  { ...amenities[2], title: "Groupe électrogène", text: "Alimentation de secours automatique" },
+  { ...amenities[3], title: "Climatisation", text: "Fraîcheur dans chaque pièce" },
+  { ...amenities[4], title: "Smart TV", text: "Divertissement sur écran plat" },
+  { ...amenities[5], title: "Accès privilégié", text: "Sur la route principale goudronnée" },
+];
+
 function Bepanda() {
+  const { language } = useSitePreferences();
+  const fr = language === "fr";
+  const shownGallery = fr ? galleryFr : gallery;
+  const shownFeatures = fr ? featuresFr : features;
+  const shownAmenities = fr ? amenitiesFr : amenities;
   return (
     <div className="min-h-screen">
       <SiteNav
         brand="Bépanda"
         brandAccent="Guest House"
         links={[
-          { label: "Features", href: "#features" },
-          { label: "Gallery", href: "#gallery" },
-          { label: "Amenities", href: "#amenities" },
-          { label: "Policy", href: "#policy" },
+          { label: fr ? "Espaces" : "Features", href: "#features" },
+          { label: fr ? "Galerie" : "Gallery", href: "#gallery" },
+          { label: fr ? "Équipements" : "Amenities", href: "#amenities" },
+          { label: fr ? "Règlement" : "Policy", href: "#policy" },
           { label: "Contact", href: "#contact" },
         ]}
         bookHref="#contact"
@@ -94,32 +116,31 @@ function Bepanda() {
               Douala · Bépanda · Clinique Etienno
             </span>
             <h1 className="mt-8 font-display text-5xl font-bold leading-[1.05] sm:text-6xl">
-              Luxury &amp; Comfort,
-              <span className="block text-gradient-amber">Fully Furnished</span>
+              {fr ? "Luxe et confort," : "Luxury & Comfort,"}
+              <span className="block text-gradient-amber">{fr ? "Entièrement meublé" : "Fully Furnished"}</span>
             </h1>
             <p className="mt-6 max-w-xl text-muted-foreground">
-              Two premium studios designed to international standards. Perfect for expatriates,
-              tourists, and professionals seeking a secure, modern stay in Douala.
+              {fr ? "Deux studios haut de gamme conçus selon les normes internationales. Parfaits pour les expatriés, touristes et professionnels à la recherche d'un séjour moderne et sécurisé à Douala." : "Two premium studios designed to international standards. Perfect for expatriates, tourists, and professionals seeking a secure, modern stay in Douala."}
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a
                 href="#contact"
                 className="rounded-full bg-gradient-amber px-6 py-3 font-semibold text-primary-foreground shadow-glow transition-transform hover:scale-[1.03]"
               >
-                Reserve Your Stay
+                {fr ? "Réserver votre séjour" : "Reserve Your Stay"}
               </a>
               <a
                 href="#gallery"
                 className="rounded-full border border-border px-6 py-3 font-semibold transition-colors hover:border-primary"
               >
-                View Gallery
+                {fr ? "Voir la galerie" : "View Gallery"}
               </a>
             </div>
             <dl className="mt-10 flex gap-10">
               {[
-                ["24/7", "Security"],
+                ["24/7", fr ? "Sécurité" : "Security"],
                 ["2", "Studios"],
-                ["100%", "Furnished"],
+                ["100%", fr ? "Meublés" : "Furnished"],
               ].map(([n, l]) => (
                 <div key={l}>
                   <dt className="font-display text-2xl font-bold text-primary">{n}</dt>
@@ -128,19 +149,18 @@ function Bepanda() {
               ))}
             </dl>
           </div>
-          <Carousel items={gallery} />
+          <Carousel items={shownGallery} />
         </section>
 
         <section id="features" className="mx-auto max-w-7xl scroll-mt-20 px-4 py-16 sm:px-6">
           <h2 className="font-display text-3xl font-bold sm:text-4xl">
-            Designed for <span className="text-gradient-amber">comfort</span>
+            {fr ? "Pensé pour votre " : "Designed for "}<span className="text-gradient-amber">{fr ? "confort" : "comfort"}</span>
           </h2>
           <p className="mt-3 max-w-2xl text-muted-foreground">
-            Every detail considered. From the plush bedding to the equipped kitchen — your home
-            away from home.
+            {fr ? "Chaque détail a été pensé, de la literie douillette à la cuisine équipée : votre maison loin de chez vous." : "Every detail considered. From the plush bedding to the equipped kitchen — your home away from home."}
           </p>
           <div className="mt-10 grid gap-6 sm:grid-cols-2">
-            {features.map((f) => (
+            {shownFeatures.map((f) => (
               <article
                 key={f.title}
                 className="overflow-hidden rounded-2xl border border-border bg-card shadow-card"
@@ -161,20 +181,20 @@ function Bepanda() {
         </section>
 
         <GalleryGrid
-          items={gallery}
-          title="Inside the |studios"
-          subtitle="Swipe or use the arrows to explore each room."
+          items={shownGallery}
+          title={fr ? "À l'intérieur des |studios" : "Inside the |studios"}
+          subtitle={fr ? "Faites glisser ou utilisez les flèches pour découvrir chaque pièce." : "Swipe or use the arrows to explore each room."}
         />
 
         <section id="amenities" className="mx-auto max-w-7xl scroll-mt-20 px-4 py-16 sm:px-6">
           <h2 className="font-display text-3xl font-bold sm:text-4xl">
-            Premium <span className="text-gradient-amber">amenities</span>
+            {fr ? "Des équipements " : "Premium "}<span className="text-gradient-amber">{fr ? "haut de gamme" : "amenities"}</span>
           </h2>
           <p className="mt-3 max-w-2xl text-muted-foreground">
-            Everything included — so you can settle in and feel at home from day one.
+            {fr ? "Tout est inclus pour que vous vous sentiez chez vous dès le premier jour." : "Everything included — so you can settle in and feel at home from day one."}
           </p>
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {amenities.map(({ Icon, title, text }) => (
+            {shownAmenities.map(({ Icon, title, text }) => (
               <div
                 key={title}
                 className="rounded-2xl border border-border bg-card p-6 shadow-card transition-colors hover:border-primary/50"
@@ -190,7 +210,7 @@ function Bepanda() {
         <PolicySection />
 
         <ContactSection
-          blurb="Contact us today for rates, availability, and reservations. We respond promptly."
+          blurb={fr ? "Contactez-nous dès aujourd'hui pour connaître les tarifs, les disponibilités et réserver. Nous répondons rapidement." : "Contact us today for rates, availability, and reservations. We respond promptly."}
           primaryTel={contact.phone1Tel}
           primaryLabel="671 300 185"
           secondaryLabel="675 535 727"

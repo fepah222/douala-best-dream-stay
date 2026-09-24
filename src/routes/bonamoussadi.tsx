@@ -5,6 +5,7 @@ import { SiteNav } from "@/components/site/SiteNav";
 import { Carousel, GalleryGrid, type GalleryItem } from "@/components/site/Gallery";
 import { PolicySection } from "@/components/site/PolicySection";
 import { ContactSection, SiteFooter } from "@/components/site/ContactSection";
+import { useSitePreferences } from "@/components/site/SitePreferences";
 
 export const Route = createFileRoute("/bonamoussadi")({
   head: () => ({
@@ -72,17 +73,38 @@ const amenities = [
   { Icon: ShieldCheck, title: "24/7 Security", text: "Safe, sophisticated neighborhood" },
 ];
 
+const galleryFr: GalleryItem[] = ["Séjour", "Chambre principale", "Salon", "Cuisine ouverte", "Chambre du studio", "Balcon panoramique", "Salon TV", "Vue de la chambre", "Grand salon"].map((label, index) => ({ ...gallery[index], label }));
+const featuresFr = [
+  { ...features[0], title: "Studios ultramodernes", text: "14 studios élégants avec finitions haut de gamme, balcon privé et vue panoramique sur la ville." },
+  { ...features[1], title: "Appartements luxueux de 2 chambres", text: "3 appartements spacieux, parfaits pour les familles ou les séjours professionnels tout confort." },
+  { ...features[2], title: "Salle de conférence sur place", text: "Un espace moderne et entièrement équipé pour séminaires, réunions et événements." },
+  { ...features[3], title: "Parking privé sécurisé", text: "Un stationnement facile dans un quartier privilégié et élégant." },
+];
+const amenitiesFr = [
+  { ...amenities[0], title: "Wi-Fi haut débit", text: "Connexion rapide et ininterrompue" },
+  { ...amenities[1], title: "Abonnement Canal+", text: "Divertissement TV haut de gamme inclus" },
+  { ...amenities[2], title: "Climatisation complète", text: "Fraîcheur dans chaque pièce" },
+  { ...amenities[3], title: "Eau chaude permanente", text: "Eau chaude fiable jour et nuit" },
+  { ...amenities[4], title: "Balcons panoramiques", text: "Balcons privés avec vue sur la ville" },
+  { ...amenities[5], title: "Sécurité 24 h/24", text: "Quartier sûr et élégant" },
+];
+
 function Bonamoussadi() {
+  const { language } = useSitePreferences();
+  const fr = language === "fr";
+  const shownGallery = fr ? galleryFr : gallery;
+  const shownFeatures = fr ? featuresFr : features;
+  const shownAmenities = fr ? amenitiesFr : amenities;
   return (
     <div className="min-h-screen">
       <SiteNav
         brand="Bonamoussadi"
         brandAccent="Guest House"
         links={[
-          { label: "Features", href: "#features" },
-          { label: "Gallery", href: "#gallery" },
-          { label: "Amenities", href: "#amenities" },
-          { label: "Policy", href: "#policy" },
+          { label: fr ? "Espaces" : "Features", href: "#features" },
+          { label: fr ? "Galerie" : "Gallery", href: "#gallery" },
+          { label: fr ? "Équipements" : "Amenities", href: "#amenities" },
+          { label: fr ? "Règlement" : "Policy", href: "#policy" },
           { label: "Contact", href: "#contact" },
         ]}
         bookHref="#contact"
@@ -96,33 +118,31 @@ function Bonamoussadi() {
               Douala · Bonamoussadi · Santa Barbara
             </span>
             <h1 className="mt-8 font-display text-5xl font-bold leading-[1.05] sm:text-6xl">
-              Premium Suites,
-              <span className="block text-gradient-amber">Redefined Hospitality</span>
+              {fr ? "Suites haut de gamme," : "Premium Suites,"}
+              <span className="block text-gradient-amber">{fr ? "L'hospitalité réinventée" : "Redefined Hospitality"}</span>
             </h1>
             <p className="mt-6 max-w-xl text-muted-foreground">
-              14 ultra-modern studios or 3 luxury 2-bedroom apartments with panoramic city views,
-              an onsite conference hall, and secure private parking in one of Douala's most
-              sophisticated neighborhoods.
+              {fr ? "14 studios ultramodernes ou 3 appartements luxueux de 2 chambres avec vue panoramique sur la ville, salle de conférence sur place et parking privé sécurisé dans l'un des quartiers les plus élégants de Douala." : "14 ultra-modern studios or 3 luxury 2-bedroom apartments with panoramic city views, an onsite conference hall, and secure private parking in one of Douala's most sophisticated neighborhoods."}
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a
                 href="#contact"
                 className="rounded-full bg-gradient-amber px-6 py-3 font-semibold text-primary-foreground shadow-glow transition-transform hover:scale-[1.03]"
               >
-                Reserve Your Stay
+                {fr ? "Réserver votre séjour" : "Reserve Your Stay"}
               </a>
               <a
                 href="#gallery"
                 className="rounded-full border border-border px-6 py-3 font-semibold transition-colors hover:border-primary"
               >
-                View Gallery
+                {fr ? "Voir la galerie" : "View Gallery"}
               </a>
             </div>
             <dl className="mt-10 flex gap-10">
               {[
                 ["14", "Studios"],
-                ["3", "Apartments"],
-                ["24/7", "Secure Parking"],
+                ["3", fr ? "Appartements" : "Apartments"],
+                ["24/7", fr ? "Parking sécurisé" : "Secure Parking"],
               ].map(([n, l]) => (
                 <div key={l}>
                   <dt className="font-display text-2xl font-bold text-primary">{n}</dt>
@@ -131,19 +151,18 @@ function Bonamoussadi() {
               ))}
             </dl>
           </div>
-          <Carousel items={gallery} />
+          <Carousel items={shownGallery} />
         </section>
 
         <section id="features" className="mx-auto max-w-7xl scroll-mt-20 px-4 py-16 sm:px-6">
           <h2 className="font-display text-3xl font-bold sm:text-4xl">
-            Built for <span className="text-gradient-amber">every stay</span>
+            {fr ? "Pensé pour " : "Built for "}<span className="text-gradient-amber">{fr ? "chaque séjour" : "every stay"}</span>
           </h2>
           <p className="mt-3 max-w-2xl text-muted-foreground">
-            From business travelers to vacationing families — choose the space that fits your
-            journey.
+            {fr ? "Du voyage d'affaires aux vacances en famille, choisissez l'espace adapté à votre séjour." : "From business travelers to vacationing families — choose the space that fits your journey."}
           </p>
           <div className="mt-10 grid gap-6 sm:grid-cols-2">
-            {features.map((f) => (
+            {shownFeatures.map((f) => (
               <article
                 key={f.title}
                 className="overflow-hidden rounded-2xl border border-border bg-card shadow-card"
@@ -164,20 +183,20 @@ function Bonamoussadi() {
         </section>
 
         <GalleryGrid
-          items={gallery}
-          title="Inside the |property"
-          subtitle="Swipe or use the arrows to explore the spaces."
+          items={shownGallery}
+          title={fr ? "À l'intérieur de la |résidence" : "Inside the |property"}
+          subtitle={fr ? "Faites glisser ou utilisez les flèches pour découvrir les espaces." : "Swipe or use the arrows to explore the spaces."}
         />
 
         <section id="amenities" className="mx-auto max-w-7xl scroll-mt-20 px-4 py-16 sm:px-6">
           <h2 className="font-display text-3xl font-bold sm:text-4xl">
-            Top-tier <span className="text-gradient-amber">amenities</span>
+            {fr ? "Des équipements " : "Top-tier "}<span className="text-gradient-amber">{fr ? "d'exception" : "amenities"}</span>
           </h2>
           <p className="mt-3 max-w-2xl text-muted-foreground">
-            Everything included for comfort, autonomy, and luxury.
+            {fr ? "Tout est inclus pour votre confort, votre autonomie et une expérience luxueuse." : "Everything included for comfort, autonomy, and luxury."}
           </p>
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {amenities.map(({ Icon, title, text }) => (
+            {shownAmenities.map(({ Icon, title, text }) => (
               <div
                 key={title}
                 className="rounded-2xl border border-border bg-card p-6 shadow-card transition-colors hover:border-primary/50"
@@ -193,7 +212,7 @@ function Bonamoussadi() {
         <PolicySection />
 
         <ContactSection
-          blurb="Contact us today for rates, availability, and reservations. Experience hospitality redefined."
+          blurb={fr ? "Contactez-nous dès aujourd'hui pour connaître les tarifs, les disponibilités et réserver. Découvrez une nouvelle vision de l'hospitalité." : "Contact us today for rates, availability, and reservations. Experience hospitality redefined."}
           primaryTel={contact.phone2Tel}
           primaryLabel={contact.phone2}
           secondaryLabel={contact.phone1}
