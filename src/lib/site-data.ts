@@ -115,3 +115,16 @@ export const policy: { title: string; items: string[] }[] = [
     ],
   },
 ];
+
+export const policyFr: { title: string; items: string[] }[] = [
+  { title: "Réservation et paiement", items: ["Réservations confirmées par téléphone, e-mail ou sur place. Paiement en XAF (FCFA) ou par carte bancaire.", "Le paiement intégral ou un acompte peut être demandé à l'arrivée."] },
+  { title: "Arrivée et départ", items: ["Arrivée à partir de 14 h. Départ avant 11 h."] },
+  { title: "Identité et occupation", items: ["Présentez une pièce d'identité valide avec photo à l'arrivée.", "Seuls les clients enregistrés peuvent passer la nuit. Respectez la capacité maximale du logement."] },
+  { title: "Annulations", items: ["Prévenez-nous dès que possible pour annuler ou modifier une réservation. Les conditions communiquées lors de la réservation s'appliquent."] },
+  { title: "Règlement intérieur", items: ["Heures de calme : 22 h à 7 h. Merci de respecter les autres clients.", "Il est interdit de fumer dans les chambres et espaces fermés. Utilisez les zones extérieures prévues.", "Les animaux sont acceptés uniquement sur accord préalable ; des frais et conditions peuvent s'appliquer.", "Aucune fête ni grand rassemblement sans autorisation."] },
+  { title: "Propreté et dommages", items: ["Gardez votre logement propre. Des frais supplémentaires s'appliquent en cas de saleté excessive.", "Les clients sont responsables des dommages causés par eux-mêmes ou leurs visiteurs."] },
+  { title: "Équipements et internet", items: ["Les espaces communs sont partagés : merci de les laisser propres.", "Le Wi-Fi est gratuit pour les clients. Toute activité illégale est interdite."] },
+  { title: "Sécurité", items: ["Fermez portes et fenêtres en partant. Utilisez le coffre prévu pour vos objets de valeur.", "Signalez immédiatement tout problème d'entretien ou de sécurité."] },
+  { title: "Urgences et contacts", items: ["Les numéros d'urgence et contacts locaux sont affichés à la réception.", "Contactez la réception pour toute aide ou information."] },
+  { title: "Objets oubliés", items: ["Nous conservons les objets trouvés pendant une durée limitée. Les frais d'expédition sont à la charge du client."] },
+];
