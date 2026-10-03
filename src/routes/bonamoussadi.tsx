@@ -7,6 +7,12 @@ import { PolicySection } from "@/components/site/PolicySection";
 import { ContactSection, SiteFooter } from "@/components/site/ContactSection";
 import { useSitePreferences } from "@/components/site/SitePreferences";
 
+type Amenity = {
+  Icon: typeof Wifi;
+  title: string;
+  text: string;
+};
+
 export const Route = createFileRoute("/bonamoussadi")({
   head: () => ({
     meta: [
@@ -64,7 +70,7 @@ const features = [
   },
 ];
 
-const amenities = [
+const amenities: Amenity[] = [
   { Icon: Wifi, title: "High-Speed Wi-Fi", text: "Fast, uninterrupted connectivity" },
   { Icon: Tv, title: "Canal+ Subscription", text: "Premium TV entertainment included" },
   { Icon: Snowflake, title: "Full Air Conditioning", text: "Cool comfort in every room" },
@@ -73,20 +79,20 @@ const amenities = [
   { Icon: ShieldCheck, title: "24/7 Security", text: "Safe, sophisticated neighborhood" },
 ];
 
-const galleryFr: GalleryItem[] = ["Séjour", "Chambre principale", "Salon", "Cuisine ouverte", "Chambre du studio", "Balcon panoramique", "Salon TV", "Vue de la chambre", "Grand salon"].map((label, index) => ({ ...gallery[index], label }));
+const galleryFr: GalleryItem[] = ["Séjour", "Chambre principale", "Salon", "Cuisine ouverte", "Chambre du studio", "Balcon panoramique", "Salon TV", "Vue de la chambre", "Grand salon"].map((label, index) => ({ src: gallery[index]?.src ?? "", label }));
 const featuresFr = [
   { ...features[0], title: "Studios ultramodernes", text: "14 studios élégants avec finitions haut de gamme, balcon privé et vue panoramique sur la ville." },
   { ...features[1], title: "Appartements luxueux de 2 chambres", text: "3 appartements spacieux, parfaits pour les familles ou les séjours professionnels tout confort." },
   { ...features[2], title: "Salle de conférence sur place", text: "Un espace moderne et entièrement équipé pour séminaires, réunions et événements." },
   { ...features[3], title: "Parking privé sécurisé", text: "Un stationnement facile dans un quartier privilégié et élégant." },
 ];
-const amenitiesFr = [
-  { ...amenities[0], title: "Wi-Fi haut débit", text: "Connexion rapide et ininterrompue" },
-  { ...amenities[1], title: "Abonnement Canal+", text: "Divertissement TV haut de gamme inclus" },
-  { ...amenities[2], title: "Climatisation complète", text: "Fraîcheur dans chaque pièce" },
-  { ...amenities[3], title: "Eau chaude permanente", text: "Eau chaude fiable jour et nuit" },
-  { ...amenities[4], title: "Balcons panoramiques", text: "Balcons privés avec vue sur la ville" },
-  { ...amenities[5], title: "Sécurité 24 h/24", text: "Quartier sûr et élégant" },
+const amenitiesFr: Amenity[] = [
+  { Icon: Wifi, title: "Wi-Fi haut débit", text: "Connexion rapide et ininterrompue" },
+  { Icon: Tv, title: "Abonnement Canal+", text: "Divertissement TV haut de gamme inclus" },
+  { Icon: Snowflake, title: "Climatisation complète", text: "Fraîcheur dans chaque pièce" },
+  { Icon: Droplets, title: "Eau chaude permanente", text: "Eau chaude fiable jour et nuit" },
+  { Icon: Building2, title: "Balcons panoramiques", text: "Balcons privés avec vue sur la ville" },
+  { Icon: ShieldCheck, title: "Sécurité 24 h/24", text: "Quartier sûr et élégant" },
 ];
 
 function Bonamoussadi() {

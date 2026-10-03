@@ -4,6 +4,17 @@ import { images } from "@/lib/site-data";
 import { SiteFooter } from "@/components/site/ContactSection";
 import { PreferenceControls, useSitePreferences } from "@/components/site/SitePreferences";
 
+type Location = {
+  to: "/bepanda" | "/bonamoussadi";
+  image: string;
+  alt: string;
+  area: string;
+  meta: string;
+  Icon: typeof BedDouble;
+  title: string;
+  text: string;
+};
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -26,7 +37,7 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const locations = [
+const locations: Location[] = [
   {
     to: "/bepanda" as const,
     image: images.living1,
@@ -49,9 +60,9 @@ const locations = [
   },
 ];
 
-const locationsFr = [
-  { ...locations[0], alt: "Maison d'hôtes de Bépanda", meta: "2 studios meublés", title: "Maison d'hôtes de Bépanda", text: "Deux studios haut de gamme entièrement meublés sur la route principale goudronnée. Parfaits pour les expatriés, touristes et professionnels." },
-  { ...locations[1], alt: "Maison d'hôtes de Bonamoussadi", meta: "14 studios · 3 appartements · Salle de conférence", title: "Maison d'hôtes de Bonamoussadi", text: "Des studios ultramodernes et des appartements luxueux de 2 chambres avec vue panoramique sur la ville et salle de conférence sur place." },
+const locationsFr: Location[] = [
+  { to: "/bepanda", image: images.living1, area: "Bépanda · Clinique Etienno", Icon: BedDouble, alt: "Maison d'hôtes de Bépanda", meta: "2 studios meublés", title: "Maison d'hôtes de Bépanda", text: "Deux studios haut de gamme entièrement meublés sur la route principale goudronnée. Parfaits pour les expatriés, touristes et professionnels." },
+  { to: "/bonamoussadi", image: images.bonaSalon, area: "Bonamoussadi · Santa Barbara", Icon: Building2, alt: "Maison d'hôtes de Bonamoussadi", meta: "14 studios · 3 appartements · Salle de conférence", title: "Maison d'hôtes de Bonamoussadi", text: "Des studios ultramodernes et des appartements luxueux de 2 chambres avec vue panoramique sur la ville et salle de conférence sur place." },
 ];
 
 function Index() {
