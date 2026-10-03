@@ -7,6 +7,12 @@ import { PolicySection } from "@/components/site/PolicySection";
 import { ContactSection, SiteFooter } from "@/components/site/ContactSection";
 import { useSitePreferences } from "@/components/site/SitePreferences";
 
+type Amenity = {
+  Icon: typeof Wifi;
+  title: string;
+  text: string;
+};
+
 export const Route = createFileRoute("/bepanda")({
   head: () => ({
     meta: [
@@ -62,7 +68,7 @@ const features = [
   },
 ];
 
-const amenities = [
+const amenities: Amenity[] = [
   { Icon: Wifi, title: "High-Speed Wi-Fi", text: "Uninterrupted global connectivity" },
   { Icon: ShieldCheck, title: "24/7 Security", text: "On-site personnel around the clock" },
   { Icon: Zap, title: "Standby Generator", text: "Automatic backup — never lose power" },
@@ -71,20 +77,20 @@ const amenities = [
   { Icon: MapPin, title: "Prime Access", text: "On the paved main road" },
 ];
 
-const galleryFr: GalleryItem[] = ["Salon", "Chambre", "Cuisine", "Espace détente", "Salle de bain", "Canapé-lit", "Kitchenette"].map((label, index) => ({ ...gallery[index], label }));
+const galleryFr: GalleryItem[] = ["Salon", "Chambre", "Cuisine", "Espace détente", "Salle de bain", "Canapé-lit", "Kitchenette"].map((label, index) => ({ src: gallery[index]?.src ?? "", label }));
 const featuresFr = [
   { ...features[0], title: "Salon spacieux", text: "Canapé confortable, Smart TV et climatisation pour vous détendre ou recevoir." },
   { ...features[1], title: "Chambre confortable", text: "Lit douillet, literie haut de gamme, climatisation et placards intégrés en bois." },
   { ...features[2], title: "Cuisine équipée", text: "Cuisinière à gaz, réfrigérateur, micro-ondes et ustensiles essentiels." },
   { ...features[3], title: "Salle de bain moderne", text: "Entièrement carrelée avec un système de douche à eau chaude fonctionnel." },
 ];
-const amenitiesFr = [
-  { ...amenities[0], title: "Wi-Fi haut débit", text: "Connexion mondiale ininterrompue" },
-  { ...amenities[1], title: "Sécurité 24 h/24", text: "Personnel sur place en permanence" },
-  { ...amenities[2], title: "Groupe électrogène", text: "Alimentation de secours automatique" },
-  { ...amenities[3], title: "Climatisation", text: "Fraîcheur dans chaque pièce" },
-  { ...amenities[4], title: "Smart TV", text: "Divertissement sur écran plat" },
-  { ...amenities[5], title: "Accès privilégié", text: "Sur la route principale goudronnée" },
+const amenitiesFr: Amenity[] = [
+  { Icon: Wifi, title: "Wi-Fi haut débit", text: "Connexion mondiale ininterrompue" },
+  { Icon: ShieldCheck, title: "Sécurité 24 h/24", text: "Personnel sur place en permanence" },
+  { Icon: Zap, title: "Groupe électrogène", text: "Alimentation de secours automatique" },
+  { Icon: Snowflake, title: "Climatisation", text: "Fraîcheur dans chaque pièce" },
+  { Icon: Tv, title: "Smart TV", text: "Divertissement sur écran plat" },
+  { Icon: MapPin, title: "Accès privilégié", text: "Sur la route principale goudronnée" },
 ];
 
 function Bepanda() {
