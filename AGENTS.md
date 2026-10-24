@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+Property photos are served from byte-preserved JPEG files in `public/images`, with their paths centralized in `src/lib/site-data.ts`, so they travel with the repository and do not require Lovable asset hosting.

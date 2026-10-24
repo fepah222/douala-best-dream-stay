@@ -1,37 +1,20 @@
-import living1 from "@/assets/living1.jpeg.asset.json";
-import living2 from "@/assets/living2.jpeg.asset.json";
-import living3 from "@/assets/living3.jpeg.asset.json";
-import bedroom from "@/assets/bedroom.jpeg.asset.json";
-import kitchen1 from "@/assets/kitchen1.jpeg.asset.json";
-import kitchen2 from "@/assets/kitchen2.jpeg.asset.json";
-import bathroom from "@/assets/bathroom.jpeg.asset.json";
-import bonaLiving1 from "@/assets/bona-living1.jpeg.asset.json";
-import bonaLiving2 from "@/assets/bona-living2.jpeg.asset.json";
-import bonaLounge from "@/assets/bona-lounge.jpeg.asset.json";
-import bonaSalon from "@/assets/bona-salon.jpeg.asset.json";
-import bonaKitchen from "@/assets/bona-kitchen.jpeg.asset.json";
-import bonaBedroom1 from "@/assets/bona-bedroom1.jpeg.asset.json";
-import bonaBedroom2 from "@/assets/bona-bedroom2.jpeg.asset.json";
-import bonaBalcony from "@/assets/bona-balcony.jpeg.asset.json";
-import bonaSuite1 from "@/assets/bona-suite1.jpeg.asset.json";
-
 export const images = {
-  living1: living1.url,
-  living2: living2.url,
-  living3: living3.url,
-  bedroom: bedroom.url,
-  kitchen1: kitchen1.url,
-  kitchen2: kitchen2.url,
-  bathroom: bathroom.url,
-  bonaLiving1: bonaLiving1.url,
-  bonaLiving2: bonaLiving2.url,
-  bonaLounge: bonaLounge.url,
-  bonaSalon: bonaSalon.url,
-  bonaKitchen: bonaKitchen.url,
-  bonaBedroom1: bonaBedroom1.url,
-  bonaBedroom2: bonaBedroom2.url,
-  bonaBalcony: bonaBalcony.url,
-  bonaSuite1: bonaSuite1.url,
+  living1: "/images/living1.jpeg",
+  living2: "/images/living2.jpeg",
+  living3: "/images/living3.jpeg",
+  bedroom: "/images/bedroom.jpeg",
+  kitchen1: "/images/kitchen1.jpeg",
+  kitchen2: "/images/kitchen2.jpeg",
+  bathroom: "/images/bathroom.jpeg",
+  bonaLiving1: "/images/bona-living1.jpeg",
+  bonaLiving2: "/images/bona-living2.jpeg",
+  bonaLounge: "/images/bona-lounge.jpeg",
+  bonaSalon: "/images/bona-salon.jpeg",
+  bonaKitchen: "/images/bona-kitchen.jpeg",
+  bonaBedroom1: "/images/bona-bedroom1.jpeg",
+  bonaBedroom2: "/images/bona-bedroom2.jpeg",
+  bonaBalcony: "/images/bona-balcony.jpeg",
+  bonaSuite1: "/images/bona-suite1.jpeg",
 };
 
 export const contact = {
