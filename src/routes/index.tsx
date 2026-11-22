@@ -1,19 +1,15 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowDown, ArrowUpRight, BedDouble, Building2, MapPin, MessageCircle } from "lucide-react";
+import { ArrowUpRight, BedDouble, Building2, MapPin, MessageCircle, Sparkles } from "lucide-react";
 import { images } from "@/lib/site-data";
 import { SiteFooter } from "@/components/site/ContactSection";
 import { PreferenceControls, useSitePreferences } from "@/components/site/SitePreferences";
 
-type Location = {
-  to: "/bepanda" | "/bonamoussadi";
+type Collection = {
+  title: string;
+  subtitle: string;
   image: string;
   alt: string;
-  area: string;
-  meta: string;
-  Icon: typeof BedDouble;
-  title: string;
-  text: string;
-  number: string;
+  to: "/bepanda" | "/bonamoussadi";
 };
 
 export const Route = createFileRoute("/")({
@@ -22,14 +18,10 @@ export const Route = createFileRoute("/")({
       { title: "Douala Best Dreams | Furnished Stays in Douala" },
       {
         name: "description",
-        content:
-          "Find a comfortable furnished studio or apartment in Douala. Explore our Bépanda and Bonamoussadi guest-house locations.",
+        content: "Discover furnished studios and comfortable apartments at Douala Best Dreams in Bépanda and Bonamoussadi, Douala, Cameroon.",
       },
       { property: "og:title", content: "Douala Best Dreams | Furnished Stays in Douala" },
-      {
-        property: "og:description",
-        content: "Thoughtful spaces, warm hospitality and convenient stays in Douala, Cameroon.",
-      },
+      { property: "og:description", content: "Comfortable furnished stays and warm hospitality in Douala, Cameroon." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -37,198 +29,124 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const locations: Location[] = [
-  {
-    to: "/bepanda",
-    image: images.living1,
-    alt: "Furnished living area at the Bépanda guest house",
-    area: "Bépanda · Clinique Etienno",
-    meta: "2 furnished studios",
-    Icon: BedDouble,
-    title: "Bépanda",
-    text: "A welcoming, practical place to settle in, with furnished studios along the paved main road.",
-    number: "01",
-  },
-  {
-    to: "/bonamoussadi",
-    image: images.bonaSalon,
-    alt: "Modern apartment living area at the Bonamoussadi guest house",
-    area: "Bonamoussadi · Santa Barbara",
-    meta: "14 studios · 3 apartments · Conference hall",
-    Icon: Building2,
-    title: "Bonamoussadi",
-    text: "Contemporary studios and spacious two-bedroom apartments, with a conference hall on site.",
-    number: "02",
-  },
-];
-
-const locationsFr: Location[] = [
-  {
-    ...locations[0],
-    area: "Bépanda · Clinique Etienno",
-    meta: "2 studios meublés",
-    title: "Bépanda",
-    text: "Un lieu accueillant et pratique, avec des studios meublés situés le long de la route principale goudronnée.",
-  },
-  {
-    ...locations[1],
-    area: "Bonamoussadi · Santa Barbara",
-    meta: "14 studios · 3 appartements · Salle de conférence",
-    title: "Bonamoussadi",
-    text: "Des studios contemporains et de spacieux appartements de deux chambres, avec une salle de conférence sur place.",
-  },
-];
-
 function Index() {
   const { language } = useSitePreferences();
   const fr = language === "fr";
-  const displayedLocations = fr ? locationsFr : locations;
   const whatsapp = "https://wa.me/237675535727?text=" + encodeURIComponent(
     fr ? "Bonjour, je souhaite avoir des informations sur vos logements à Douala." : "Hello, I would like information about your furnished stays in Douala."
   );
 
+  const collections: Collection[] = [
+    { title: fr ? "Séjours à Bépanda" : "Bépanda Stays", subtitle: fr ? "Studios meublés" : "Furnished studios", image: images.living1, alt: "Furnished studio living space in Bépanda", to: "/bepanda" },
+    { title: fr ? "Séjours à Bonamoussadi" : "Bonamoussadi Stays", subtitle: fr ? "Studios et appartements" : "Studios and apartments", image: images.bonaSalon, alt: "Modern furnished living room in Bonamoussadi", to: "/bonamoussadi" },
+    { title: fr ? "Espaces de vie" : "Living Spaces", subtitle: fr ? "Confort au quotidien" : "Comfort for everyday living", image: images.bonaLiving1, alt: "Comfortable furnished living area", to: "/bonamoussadi" },
+    { title: fr ? "Chambres accueillantes" : "Restful Bedrooms", subtitle: fr ? "Détente et repos" : "Rest and recharge", image: images.bonaBedroom1, alt: "Neatly furnished guest-house bedroom", to: "/bonamoussadi" },
+  ];
+
   return (
-    <div className="min-h-screen overflow-hidden bg-[#f7f4ed] text-[#29271f]">
-      <header className="relative z-20 border-b border-[#ded8ca] bg-[#f7f4ed]/95">
+    <div className="min-h-screen bg-[#f5f2ec] text-[#292820]">
+      <header className="relative z-30 border-b border-[#e6e0d6] bg-[#fbfaf7]">
         <div className="mx-auto flex min-h-[76px] max-w-[1440px] items-center justify-between gap-4 px-5 sm:px-8 lg:px-12">
-          <Link to="/" className="group flex items-center gap-3" aria-label="Douala Best Dreams home">
-            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#343c2d] font-display text-lg text-[#f7f4ed]">D</span>
+          <Link to="/" className="flex items-center gap-3" aria-label="Douala Best Dreams home">
+            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#394337] font-display text-lg text-white">D</span>
             <span className="leading-tight">
               <span className="block font-display text-lg font-semibold tracking-tight sm:text-xl">Douala Best Dreams</span>
-              <span className="mt-0.5 block text-[9px] font-semibold uppercase tracking-[0.25em] text-[#8a806d]">Furnished stays · Douala</span>
+              <span className="mt-0.5 block text-[9px] font-semibold uppercase tracking-[0.24em] text-[#8b806e]">Furnished stays · Douala</span>
             </span>
           </Link>
-          <div className="flex items-center gap-3 sm:gap-6">
-            <a href="#locations" className="hidden text-sm font-medium text-[#655f52] transition-colors hover:text-[#a56b3f] sm:inline-flex">
-              {fr ? "Nos établissements" : "Our locations"}
+          <nav className="hidden items-center gap-7 text-sm text-[#625d52] md:flex">
+            <a href="#collections" className="transition-colors hover:text-[#b9784d]">{fr ? "Nos logements" : "Our stays"}</a>
+            <a href="#about" className="transition-colors hover:text-[#b9784d]">{fr ? "À propos" : "About"}</a>
+            <a href={whatsapp} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full bg-[#394337] px-5 py-3 text-xs font-semibold text-white transition-colors hover:bg-[#52604c]">
+              <MessageCircle className="h-4 w-4" />{fr ? "Réserver" : "Book now"}
             </a>
-            <a href={whatsapp} target="_blank" rel="noreferrer" className="hidden items-center gap-2 rounded-full bg-[#343c2d] px-5 py-3 text-xs font-semibold tracking-wide text-white transition-colors hover:bg-[#4b5940] sm:inline-flex">
-              <MessageCircle className="h-4 w-4" />
-              {fr ? "Réserver" : "Book a stay"}
-            </a>
-            <PreferenceControls />
-          </div>
+          </nav>
+          <div className="md:hidden"><PreferenceControls /></div>
+          <div className="hidden md:block"><PreferenceControls /></div>
         </div>
       </header>
 
       <main>
-        <section className="mx-auto grid max-w-[1440px] items-center gap-10 px-5 pb-16 pt-12 sm:px-8 sm:pb-20 sm:pt-16 lg:grid-cols-[0.88fr_1.12fr] lg:gap-14 lg:px-12 lg:pb-24 lg:pt-20">
-          <div className="relative z-10 max-w-2xl">
-            <p className="mb-6 flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.28em] text-[#a56b3f] sm:text-xs">
-              <span className="h-px w-9 bg-[#a56b3f]" />
-              {fr ? "Bienvenue à Douala, Cameroun" : "Welcome to Douala, Cameroon"}
-            </p>
-            <h1 className="font-display text-[clamp(3.2rem,7vw,6.4rem)] font-medium leading-[0.98] tracking-[-0.055em] text-[#29271f]">
-              {fr ? "Un séjour" : "A better"}
-              <span className="block italic text-[#a56b3f]">{fr ? "à votre image." : "way to stay."}</span>
-            </h1>
-            <p className="mt-7 max-w-lg text-base leading-8 text-[#716b5e] sm:text-lg sm:leading-9">
-              {fr
-                ? "Découvrez des studios meublés et des appartements confortables dans des quartiers pratiques de Douala. Nous sommes là pour rendre votre séjour simple et agréable."
-                : "Discover furnished studios and comfortable apartments in convenient neighbourhoods across Douala. Thoughtful spaces and warm hospitality make settling in feel easy."}
-            </p>
-            <div className="mt-9 flex flex-wrap items-center gap-4">
-              <a href="#locations" className="inline-flex items-center gap-3 rounded-full bg-[#a56b3f] px-7 py-4 text-sm font-semibold text-white shadow-[0_12px_30px_-16px_rgba(98,61,34,0.7)] transition-transform hover:-translate-y-0.5">
-                {fr ? "Explorer nos établissements" : "Explore our locations"}
-                <ArrowUpRight className="h-4 w-4" />
-              </a>
-              <span className="text-xs font-medium text-[#8a806d]">{fr ? "Bépanda · Bonamoussadi" : "Bépanda · Bonamoussadi"}</span>
-            </div>
-            <div className="mt-12 flex items-center gap-4 border-t border-[#ded8ca] pt-6">
-              <div className="flex -space-x-2">
-                <span className="h-8 w-8 rounded-full border-2 border-[#f7f4ed] bg-[#d9c6a8]" />
-                <span className="h-8 w-8 rounded-full border-2 border-[#f7f4ed] bg-[#a8ad91]" />
-                <span className="h-8 w-8 rounded-full border-2 border-[#f7f4ed] bg-[#c18d66]" />
+        <section className="relative mx-auto max-w-[1440px] px-4 pt-4 sm:px-7 sm:pt-7 lg:px-10">
+          <div className="relative min-h-[490px] overflow-hidden rounded-[1.4rem] bg-[#d8d0c3] sm:min-h-[570px] lg:min-h-[630px]">
+            <img src={images.living3} alt="Bright and welcoming furnished guest-house living room" className="absolute inset-0 h-full w-full object-cover object-center" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#f6f1e9]/95 via-[#f6f1e9]/78 to-[#f6f1e9]/5 sm:from-[#f6f1e9]/95 sm:via-[#f6f1e9]/65 sm:to-transparent" />
+            <div className="relative z-10 flex min-h-[490px] items-center px-6 py-14 sm:min-h-[570px] sm:px-12 lg:min-h-[630px] lg:px-16">
+              <div className="max-w-[590px]">
+                <p className="mb-5 flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.28em] text-[#a66d48] sm:text-xs">
+                  <span className="h-px w-9 bg-[#a66d48]" />{fr ? "Douala · Cameroun" : "Douala · Cameroon"}
+                </p>
+                <h1 className="font-display text-[clamp(3.1rem,6.5vw,6.2rem)] font-medium leading-[0.98] tracking-[-0.055em] text-[#292820]">
+                  {fr ? "Votre séjour," : "Feel at home"}
+                  <span className="block italic text-[#a66d48]">{fr ? "en mieux." : "in Douala."}</span>
+                </h1>
+                <p className="mt-6 max-w-md text-sm leading-7 text-[#625d52] sm:text-base sm:leading-8">
+                  {fr
+                    ? "Des studios meublés et des appartements confortables pour vos séjours courts ou prolongés à Douala."
+                    : "Furnished studios and comfortable apartments for short visits, business trips and longer stays in Douala."}
+                </p>
+                <a href="#collections" className="mt-8 inline-flex items-center gap-3 rounded-xl bg-[#bd8055] px-7 py-4 text-sm font-semibold text-white shadow-lg shadow-[#8b5b3b]/20 transition-all hover:-translate-y-0.5 hover:bg-[#a96d45]">
+                  {fr ? "Découvrir nos logements" : "Explore our stays"} <ArrowUpRight className="h-4 w-4" />
+                </a>
               </div>
-              <p className="text-xs leading-5 text-[#817969]">
-                <span className="block font-semibold text-[#494438]">{fr ? "Des espaces pour se sentir chez soi" : "Space to feel at home"}</span>
-                {fr ? "Pour les courts et longs séjours" : "For short and extended stays"}
-              </p>
             </div>
           </div>
 
-          <div className="relative min-w-0">
-            <div className="absolute -right-5 -top-5 h-28 w-28 rounded-full border border-[#d5c4a8] sm:-right-8 sm:-top-8 sm:h-40 sm:w-40" />
-            <div className="relative overflow-hidden rounded-[1.8rem] rounded-bl-[5.5rem] bg-[#e5ddce] shadow-[0_28px_70px_-36px_rgba(54,44,30,0.5)]">
-              <img src={images.living3} alt="Warm, furnished guest-house living space in Douala" className="aspect-[4/3] w-full object-cover sm:aspect-[5/4] lg:aspect-[1.08/1]" />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#211d17]/55 via-transparent to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 flex items-end justify-between gap-4 p-6 text-white sm:p-8">
-                <div>
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-white/75">{fr ? "Votre prochain séjour" : "Your next stay"}</p>
-                  <p className="mt-2 font-display text-2xl sm:text-3xl">{fr ? "Bienvenue chez vous." : "Make yourself at home."}</p>
+          <div className="relative z-20 mx-3 -mt-10 grid gap-3 sm:mx-8 sm:grid-cols-3 lg:mx-12 lg:-mt-14">
+            <article className="flex min-h-[132px] items-center gap-4 rounded-2xl border border-[#e8e1d7] bg-[#fffefa] p-5 shadow-[0_16px_40px_-24px_rgba(44,39,29,0.35)] sm:p-6">
+              <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-[#eee8dc] text-[#9c704d]"><BedDouble className="h-7 w-7" /></span>
+              <div><h2 className="font-display text-xl font-semibold">{fr ? "Studios meublés" : "Furnished Studios"}</h2><p className="mt-1 text-xs leading-5 text-[#827a6d]">{fr ? "Pratiques et confortables" : "Practical and comfortable"}</p><Link to="/bepanda" className="mt-3 inline-flex items-center gap-1 text-xs font-bold text-[#9c704d]">{fr ? "Découvrir" : "Explore"} <ArrowUpRight className="h-3 w-3" /></Link></div>
+            </article>
+            <article className="flex min-h-[132px] items-center gap-4 rounded-2xl border border-[#e8e1d7] bg-[#fffefa] p-5 shadow-[0_16px_40px_-24px_rgba(44,39,29,0.35)] sm:p-6">
+              <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-[#eee8dc] text-[#9c704d]"><Building2 className="h-7 w-7" /></span>
+              <div><h2 className="font-display text-xl font-semibold">{fr ? "Appartements" : "Apartments"}</h2><p className="mt-1 text-xs leading-5 text-[#827a6d]">{fr ? "De l'espace pour vivre" : "Room to settle in"}</p><Link to="/bonamoussadi" className="mt-3 inline-flex items-center gap-1 text-xs font-bold text-[#9c704d]">{fr ? "Découvrir" : "Explore"} <ArrowUpRight className="h-3 w-3" /></Link></div>
+            </article>
+            <article className="flex min-h-[132px] items-center gap-4 rounded-2xl border border-[#e8e1d7] bg-[#fffefa] p-5 shadow-[0_16px_40px_-24px_rgba(44,39,29,0.35)] sm:p-6">
+              <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-[#eee8dc] text-[#9c704d]"><Sparkles className="h-7 w-7" /></span>
+              <div><h2 className="font-display text-xl font-semibold">{fr ? "Séjours flexibles" : "Flexible Stays"}</h2><p className="mt-1 text-xs leading-5 text-[#827a6d]">{fr ? "Courte ou longue durée" : "Short or extended visits"}</p><a href={whatsapp} target="_blank" rel="noreferrer" className="mt-3 inline-flex items-center gap-1 text-xs font-bold text-[#9c704d]">{fr ? "Nous contacter" : "Contact us"} <ArrowUpRight className="h-3 w-3" /></a></div>
+            </article>
+          </div>
+        </section>
+
+        <section id="collections" className="mx-auto max-w-[1440px] scroll-mt-8 px-5 pb-16 pt-20 sm:px-8 sm:pb-20 sm:pt-24 lg:px-12">
+          <div className="mb-8 flex flex-col justify-between gap-3 sm:mb-10 sm:flex-row sm:items-end">
+            <div>
+              <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.26em] text-[#a66d48]">{fr ? "Trouvez votre espace" : "Find your space"}</p>
+              <h2 className="font-display text-3xl font-medium tracking-tight sm:text-4xl">{fr ? "Nos logements" : "Featured Stays"}</h2>
+            </div>
+            <p className="max-w-md text-sm leading-6 text-[#7b7468]">{fr ? "Explorez nos espaces meublés et choisissez l'emplacement qui convient à votre séjour." : "Explore our furnished spaces and choose the location that suits your stay."}</p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
+            {collections.map((item, index) => (
+              <Link key={item.title} to={item.to} className="group overflow-hidden rounded-xl border border-[#e5dfd5] bg-[#fffefa] shadow-[0_12px_34px_-26px_rgba(44,39,29,0.35)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_-24px_rgba(44,39,29,0.3)]">
+                <div className="relative overflow-hidden bg-[#e8e2d8]">
+                  <img src={item.image} alt={item.alt} className="aspect-[1.18/1] w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                  <span className="absolute left-3 top-3 rounded-full bg-[#fbfaf7]/95 px-3 py-1.5 text-[9px] font-bold uppercase tracking-[0.14em] text-[#625d52]">{index < 2 ? (fr ? "Emplacement" : "Location") : (fr ? "Intérieur" : "Interior")}</span>
                 </div>
-                <span className="mb-1 hidden rounded-full border border-white/50 px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.18em] sm:inline-flex">Douala, CM</span>
-              </div>
-            </div>
-            <div className="absolute -bottom-5 -left-3 flex items-center gap-3 rounded-2xl border border-[#e7dfd1] bg-[#fffdf8] px-4 py-3 shadow-lg sm:-left-7 sm:px-5 sm:py-4">
-              <MapPin className="h-5 w-5 text-[#a56b3f]" />
-              <span className="text-xs font-semibold text-[#494438]">{fr ? "Deux quartiers, un accueil chaleureux" : "Two locations, one warm welcome"}</span>
-            </div>
+                <div className="p-4 sm:p-5">
+                  <h3 className="font-display text-xl font-semibold text-[#302e26]">{item.title}</h3>
+                  <p className="mt-1 text-xs text-[#827a6d]">{item.subtitle}</p>
+                  <span className="mt-4 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.13em] text-[#9c704d]">{fr ? "Voir les détails" : "Explore details"} <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" /></span>
+                </div>
+              </Link>
+            ))}
           </div>
         </section>
 
-        <section id="locations" className="scroll-mt-8 bg-[#eee9de] px-5 py-16 sm:px-8 sm:py-20 lg:px-12 lg:py-24">
-          <div className="mx-auto max-w-[1440px]">
-            <div className="mb-10 flex flex-col justify-between gap-5 sm:mb-12 sm:flex-row sm:items-end">
-              <div>
-                <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.28em] text-[#a56b3f] sm:text-xs">{fr ? "Trouvez votre quartier" : "Find your neighbourhood"}</p>
-                <h2 className="max-w-xl font-display text-4xl font-medium leading-tight tracking-[-0.04em] text-[#29271f] sm:text-5xl">
-                  {fr ? "Deux adresses. Votre choix." : "Two addresses. Your choice."}
-                </h2>
-              </div>
-              <p className="max-w-sm text-sm leading-7 text-[#716b5e]">
-                {fr ? "Chaque établissement a son propre caractère. Choisissez celui qui correspond le mieux à votre séjour." : "Each property has its own character. Choose the setting that works best for your time in Douala."}
-              </p>
+        <section id="about" className="bg-[#eae5db] px-5 py-14 sm:px-8 sm:py-16 lg:px-12">
+          <div className="mx-auto flex max-w-[1320px] flex-col justify-between gap-6 md:flex-row md:items-center">
+            <div>
+              <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.25em] text-[#a66d48]">{fr ? "Un séjour sans complication" : "A stay made simple"}</p>
+              <h2 className="font-display text-3xl font-medium sm:text-4xl">{fr ? "Besoin d'aide pour choisir ?" : "Need help choosing your stay?"}</h2>
+              <p className="mt-3 max-w-xl text-sm leading-7 text-[#746d61]">{fr ? "Écrivez-nous sur WhatsApp pour connaître les disponibilités et obtenir de l'aide pour votre réservation." : "Message us on WhatsApp for availability and help arranging your booking."}</p>
             </div>
-
-            <div className="grid gap-6 lg:grid-cols-2">
-              {displayedLocations.map(({ Icon, ...loc }) => (
-                <article key={loc.to} className="group grid overflow-hidden rounded-[1.5rem] border border-[#ded6c7] bg-[#faf8f2] shadow-[0_16px_45px_-32px_rgba(54,44,30,0.35)] transition-transform duration-300 hover:-translate-y-1 sm:grid-cols-[1.02fr_0.98fr]">
-                  <div className="relative min-h-[250px] overflow-hidden sm:min-h-[330px]">
-                    <img src={loc.image} alt={loc.alt} className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                    <span className="absolute left-5 top-5 rounded-full bg-[#f7f4ed]/95 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.15em] text-[#5b5549]">
-                      {loc.area}
-                    </span>
-                    <span className="absolute bottom-4 left-5 font-display text-5xl font-medium text-white/90 drop-shadow">{loc.number}</span>
-                  </div>
-                  <div className="flex flex-col justify-center p-6 sm:p-8 lg:p-9">
-                    <p className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.16em] text-[#a56b3f]">
-                      <Icon className="h-4 w-4" />
-                      {loc.meta}
-                    </p>
-                    <h3 className="mt-5 font-display text-3xl font-medium tracking-tight text-[#29271f] sm:text-4xl">{loc.title}</h3>
-                    <p className="mt-4 text-sm leading-7 text-[#716b5e]">{loc.text}</p>
-                    <Link to={loc.to} className="mt-7 inline-flex w-fit items-center gap-3 border-b border-[#a56b3f] pb-2 text-xs font-bold uppercase tracking-[0.12em] text-[#744b2d] transition-colors hover:text-[#a56b3f]">
-                      {fr ? "Voir l'établissement" : "View location"}
-                      <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-                    </Link>
-                  </div>
-                </article>
-              ))}
-            </div>
+            <a href={whatsapp} target="_blank" rel="noreferrer" className="inline-flex shrink-0 items-center gap-3 self-start rounded-xl bg-[#394337] px-7 py-4 text-sm font-semibold text-white transition-colors hover:bg-[#52604c] md:self-center"><MessageCircle className="h-4 w-4" />{fr ? "Discuter sur WhatsApp" : "Chat on WhatsApp"} <ArrowUpRight className="h-4 w-4" /></a>
           </div>
-        </section>
-
-        <section className="mx-auto flex max-w-[1440px] flex-col items-start justify-between gap-7 px-5 py-16 sm:px-8 sm:py-20 md:flex-row md:items-center lg:px-12">
-          <div>
-            <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.25em] text-[#a56b3f]">{fr ? "Commençons à organiser votre séjour" : "Let's plan your stay"}</p>
-            <h2 className="font-display text-3xl font-medium tracking-tight text-[#29271f] sm:text-4xl">{fr ? "Vous avez trouvé votre adresse ?" : "Found the right place?"}</h2>
-            <p className="mt-3 max-w-xl text-sm leading-7 text-[#716b5e]">{fr ? "Contactez-nous directement pour connaître les disponibilités et organiser votre réservation." : "Get in touch directly to ask about availability and arrange your booking."}</p>
-          </div>
-          <a href={whatsapp} target="_blank" rel="noreferrer" className="inline-flex shrink-0 items-center gap-3 rounded-full bg-[#343c2d] px-7 py-4 text-sm font-semibold text-white transition-colors hover:bg-[#4b5940]">
-            <MessageCircle className="h-4 w-4" />
-            {fr ? "Discuter sur WhatsApp" : "Chat on WhatsApp"}
-            <ArrowUpRight className="h-4 w-4" />
-          </a>
         </section>
       </main>
 
-      <div className="bg-[#29271f] text-[#e9e2d5]">
-        <SiteFooter />
-      </div>
-      <a href="#locations" aria-label={fr ? "Voir les établissements" : "View locations"} className="fixed bottom-5 right-5 z-30 flex h-12 w-12 items-center justify-center rounded-full bg-[#a56b3f] text-white shadow-xl transition-transform hover:-translate-y-1 sm:hidden">
-        <ArrowDown className="h-5 w-5" />
-      </a>
+      <div className="bg-[#292820] text-[#eee9df]"><SiteFooter /></div>
     </div>
   );
 }
